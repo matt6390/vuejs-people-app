@@ -6,7 +6,7 @@ var HomePage = {
       people: [
         {
           name: "Matthew",
-          bio: "The greatest person ever",
+          bio: "He's a cool guy",
           bioVisible: true
         },
         {
@@ -20,17 +20,23 @@ var HomePage = {
           bioVisible: true
         }
       ],
-      newPerson: { name: "", bio: "", bioVisible: true },
-      numberOfPeople: { people: 3 }
+      newPerson: { name: "", bio: "", bioVisible: true }
     };
   },
   created: function() {},
   methods: {
     addPerson: function() {
-      if (this.newPerson.name !== "") {
+      if (this.newPerson.name !== "" && this.newPerson.bio !== "") {
         this.people.push(this.newPerson);
-        this.newPerson = { name: "", bioVisible: true };
+        this.newPerson = { name: "", bioVisible: true }; //blanks out the .newPerson form, to make the form clear itself when the button is pressed
       }
+    },
+    removePerson: function() {
+      console.log("DELETED!");
+      this.people.pop(this);
+    },
+    toggleBioVis: function(inputPerson) {
+      inputPerson.bioVisible = !inputPerson.bioVisible; //if its false, it'll be true, if true, it'll be false
     }
   },
   computed: {}
