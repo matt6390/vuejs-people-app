@@ -33,12 +33,17 @@
 
     <div>
       <div v-for="person in people">
-        <span v-on:click="toggleBioVis(person)">{{ person.name }}:</span> <span v-bind:class="{strike: !person.bioVisible}">{{ person.bio }} <button v-on:click="removePerson()">Remove Person</button></span> 
+        <span v-on:click="toggleBioVis(person)">{{ person.name }}:</span> <span v-bind:class="{strike: person.bioVisible}">{{ person.bio }} <button v-on:click="removePerson()">Remove Person</button></span> 
       </div>
     </div>
 
     <div>
       <h3>Add New Person</h3>
+      <div>
+        <ul> 
+          <li v-for="error in errors">Error: {{ error }}</li>
+        </ul>
+      </div>
       <div>
         Name: <input v-model="newPerson.name">
         Bio: <input v-model="newPerson.bio">

@@ -3,33 +3,34 @@ var HomePage = {
   data: function() {
     return {
       message: "Welcome to my list of people!",
-      people: [
-        {
-          name: "Matthew",
-          bio: "He's a cool guy",
-          bioVisible: true
-        },
-        {
-          name: "Ariel",
-          bio: "The coolest meraid in all the land",
-          bioVisible: true
-        },
-        {
-          name: "Baxter",
-          bio: "A man with the name of a dog",
-          bioVisible: true
-        }
-      ],
-      newPerson: { name: "", bio: "", bioVisible: true }
+      people: [],
+      newPerson: { name: "", bio: "" },
+      errors: []
     };
   },
-  created: function() {},
+  created: function() {
+    axios.get("/people").then(
+      function(response) {
+        this.people = response.data;
+      }.bind(this)
+    );
+  },
   methods: {
     addPerson: function() {
-      if (this.newPerson.name !== "" && this.newPerson.bio !== "") {
-        this.people.push(this.newPerson);
-        this.newPerson = { name: "", bioVisible: true }; //blanks out the .newPerson form, to make the form clear itself when the button is pressed
-      }
+      axios
+        .post("/people", this.newPerson)
+        .then(
+          function(response) {
+            this.people.push(response.data);
+            this.newPerson = { name: "", bio: "" }; //blanks out the .newPerson form, tso make the form clear itself when the button is pressed
+            this.errors = [];
+          }.bind(this)
+        )
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+          }.bind(this)
+        );
     },
     removePerson: function() {
       console.log("DELETED!");
