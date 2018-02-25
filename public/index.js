@@ -7,7 +7,11 @@ var HomePage = {
       newPerson: { name: "", bio: "" },
       errors: [],
       nameFilter: "",
-      bioFilter: ""
+      bioFilter: "",
+      sortAttribute: "name",
+      sortAscending: true,
+      nameDirection: "^",
+      bioDirection: "^"
     };
   },
   created: function() {
@@ -49,9 +53,50 @@ var HomePage = {
         .toLowerCase()
         .includes(this.bioFilter.toLowerCase());
       return validName && validBio;
+    },
+    setSortAttribute: function(inputAttribute) {
+      console.log(this.nameDirection);
+      console.log(this.bioDirection);
+      if (inputAttribute === this.sortAttribute) {
+        this.sortAscending = !this.sortAscending;
+        var sign = inputAttribute + "Direction";
+        if (this.sign == "^") {
+          this.sign = "v";
+        } else {
+          this.sign = "^";
+        }
+      } else {
+        this.sortAscending = true;
+      }
+      this.sortAttribute = inputAttribute;
     }
+
+    // setSortSign: function() {
+    //   console.log("function");
+    //   if (sortSign === "^") {
+    //     sortSign = "V";
+    //   } else {
+    //     sortSign = "^";
+    //   }
+    // }
   },
-  computed: {}
+  computed: {
+    sortedPeople: function() {
+      return this.people.sort(
+        function(person1, person2) {
+          if (this.sortAscending) {
+            return person1[this.sortAttribute].localeCompare(
+              person2[this.sortAttribute]
+            );
+          } else {
+            return person2[this.sortAttribute].localeCompare(
+              person1[this.sortAttribute]
+            );
+          }
+        }.bind(this)
+      );
+    }
+  }
 };
 var router = new VueRouter({
   routes: [{ path: "/", component: HomePage }],

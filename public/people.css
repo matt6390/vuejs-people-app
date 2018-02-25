@@ -1,0 +1,60 @@
+/* Vue.js fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Vue.js slide-right */
+.slide-right-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-right-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-right-enter,
+.slide-right-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+/* Vue.js slide-left */
+.slide-left-enter-active {
+  transition: 1s;
+  animation-delay: 2s;
+}
+.slide-left-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-left-enter,
+.slide-left-leave-to {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+.hidden {
+  display: none;
+}
+.strike {
+  text-decoration: line-through;
+}
+table,
+th,
+td {
+  border: 1px solid black;
+}
+/*h2 {
+  height: 100px;
+  width: 100px;
+  background: #992b99;
+}
+
+h2:hover {
+  width: 1200px;
+}
+
+h4 {
+  background: orange;
+}*/
