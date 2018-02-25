@@ -5,7 +5,9 @@ var HomePage = {
       message: "Welcome to my list of people!",
       people: [],
       newPerson: { name: "", bio: "" },
-      errors: []
+      errors: [],
+      nameFilter: "",
+      bioFilter: ""
     };
   },
   created: function() {
@@ -38,6 +40,15 @@ var HomePage = {
     },
     toggleBioVis: function(inputPerson) {
       inputPerson.bioVisible = !inputPerson.bioVisible; //if its false, it'll be true, if true, it'll be false
+    },
+    isValidPerson: function(inputPerson) {
+      var validName = inputPerson.name
+        .toLowerCase()
+        .includes(this.nameFilter.toLowerCase());
+      var validBio = inputPerson.bio
+        .toLowerCase()
+        .includes(this.bioFilter.toLowerCase());
+      return validName && validBio;
     }
   },
   computed: {}
